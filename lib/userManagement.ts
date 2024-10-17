@@ -13,6 +13,7 @@ export async function fetchAndStoreRepositories(user: User) {
         repoName: repo.name,
         status: repo.private ? 'private' : 'public',
         lastUpdated: new Date(repo.updated_at),
+        createdAt: new Date(repo.created_at),
       });
     }
 
