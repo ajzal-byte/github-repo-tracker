@@ -15,22 +15,28 @@ import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 
 const RepoTable: React.FC<RepositoryTableProps> = ({ repositories }) => (
   <div className="bg-white p-6 rounded-lg">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-bold">All Repositories</h2>
-      <p className="text-green-500">Active Members</p>
-    </div>
-    <div className="flex justify-between items-center mb-4">
-      <div className="relative">
-        <Input type="text" placeholder="Search" className="pl-10" />
-        <Search
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-          size={20}
-        />
+    <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col">
+        <h2 className="text-2xl font-bold mb-1">All Repositories</h2>
+        <p className="text-green-500 text-sm">Active Members</p>
       </div>
-      <div className="flex items-center">
-        <span className="mr-2 text-gray-500">Sort by:</span>
-        <Button variant="outline" className="text-gray-500">
-          Newest <ChevronDown size={16} className="ml-2" />
+
+      <div className="flex items-center space-x-4">
+        <div className="relative flex-grow">
+          <Input type="text" placeholder="Search" className="pl-10 w-full" />
+          <Search
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={20}
+          />
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 text-sm text-gray-500">Sort by:</span>
+          <Button variant="outline" className="text-gray-700">
+            Newest <ChevronDown size={16} className="ml-2" />
+          </Button>
+        </div>
+        <Button variant="ghost" className="ml-4">
+          Add repository
         </Button>
       </div>
     </div>
@@ -57,10 +63,10 @@ const RepoTable: React.FC<RepositoryTableProps> = ({ repositories }) => (
               </span>
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-            {formatDistanceToNow(parseISO(repo.updated), { addSuffix: true })}
+              {formatDistanceToNow(parseISO(repo.updated), { addSuffix: true })}
             </TableCell>
             <TableCell className="hidden lg:table-cell">
-            {format(parseISO(repo.created), 'do MMMM, yyyy')}
+              {format(parseISO(repo.created), 'do MMMM, yyyy')}
             </TableCell>
           </TableRow>
         ))}

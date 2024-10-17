@@ -1,6 +1,14 @@
-import { ChevronRight, ChevronDown } from 'lucide-react';
-import { DashboardIcon, ProductIcon, CustomersIcon, IncomeIcon, PromoteIcon, HelpIcon } from './icons/icons';
+import {
+  DashboardLargeIcon,
+  DashboardIcon,
+  ProductIcon,
+  CustomersIcon,
+  IncomeIcon,
+  PromoteIcon,
+  HelpIcon,
+} from './icons/icons';
 import { Button } from '@/components/ui/button';
+import { ChevronRight, ChevronDown } from 'lucide-react';
 
 const Sidebar = () => {
   const menuItems = [
@@ -15,20 +23,7 @@ const Sidebar = () => {
   return (
     <div className="w-64 bg-white p-4 flex flex-col h-screen fixed left-0 top-0">
       <div className="flex items-center mb-8">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="lucide lucide-bolt">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-          <circle cx="12" cy="12" r="4" />
-        </svg>
+        <DashboardLargeIcon />
         <h1 className="text-xl font-bold">Dashboard</h1>
         <span className="text-xs text-gray-400 ml-1">v.01</span>
       </div>
@@ -38,7 +33,7 @@ const Sidebar = () => {
             key={item.name}
             className={`flex items-center p-2 mb-2 rounded-lg ${
               index === 2
-                ? 'bg-purple-600 text-white'
+                ? 'bg-[#5932ea] text-white'
                 : 'text-gray-500 hover:bg-gray-100'
             }`}>
             <div className="w-5 h-5 mr-3">{item.icon}</div>

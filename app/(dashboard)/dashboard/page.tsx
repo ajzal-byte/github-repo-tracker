@@ -78,15 +78,14 @@ export default function Dashboard() {
             icon="profiles"
             title="Total Customers"
             value="5,423"
-            change="+16% this month"
+            change="+16%"
           />
           <StatCard
             icon="profile-tick"
             title="Members"
             value="1,893"
-            change="-1% this month"
+            change="-1%"
           />
-          {/* <StatCard icon="active" title="Active Now" value="189" change="" /> */}
         </div>
         <RepoTable repositories={repositories} />
       </div>

@@ -9,7 +9,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon, title, value, change }) => {
       case 'profile-tick':
         return <ProfileTickIcon />;
       default:
-      return;
+        return;
     }
   };
 
@@ -25,7 +25,8 @@ const StatCard: React.FC<StatCardProps> = ({ icon, title, value, change }) => {
           className={`text-sm ${
             change.startsWith('+') ? 'text-green-500' : 'text-red-500'
           }`}>
-          {change} this month
+          {change}
+          <span className='text-[#292d32]'> this month</span>
         </p>
       </div>
     </div>
