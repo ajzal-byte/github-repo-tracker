@@ -1,15 +1,13 @@
+"use client"
 import '@/styles/globals.css';
-import { Metadata } from 'next';
-
 import { Analytics } from '@/components/analytics';
 import { SiteHeader } from '@/components/site-header';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { ThemeProvider } from '@/components/theme-provider';
-import { seoMetaData } from '@/config/seo-meta-data';
 import { fontMono, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
-export const metadata: Metadata = seoMetaData;
 
 export const viewport = {
   themeColor: [
@@ -23,6 +21,9 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const pathname = usePathname();
+  const isDashboardPage = pathname === '/dashboard';
+
   return (
     <>
       <html
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
+              {!isDashboardPage && <SiteHeader />}
               <div className="flex-1">{children}</div>
             </div>
             <Analytics />
