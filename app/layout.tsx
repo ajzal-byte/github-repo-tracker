@@ -1,4 +1,3 @@
-"use client"
 import '@/styles/globals.css';
 import { Analytics } from '@/components/analytics';
 import { SiteHeader } from '@/components/site-header';
@@ -6,7 +5,6 @@ import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { ThemeProvider } from '@/components/theme-provider';
 import { fontMono, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
 
 
 export const viewport = {
@@ -21,8 +19,6 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const pathname = usePathname();
-  const isDashboardPage = pathname === '/dashboard';
 
   return (
     <>
@@ -38,7 +34,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              {!isDashboardPage && <SiteHeader />}
               <div className="flex-1">{children}</div>
             </div>
             <Analytics />
