@@ -31,7 +31,7 @@ const Sidebar = () => {
         {menuItems.map((item, index) => (
           <div
             key={item.name}
-            className={`flex items-center p-2 mb-2 rounded-lg ${
+            className={`flex items-center p-2 mb-2 rounded-lg cursor-pointer ${
               index === 2
                 ? 'bg-[#5932ea] text-white'
                 : 'text-gray-500 hover:bg-gray-100'

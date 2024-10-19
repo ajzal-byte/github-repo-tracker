@@ -1,14 +1,24 @@
 import { SiteHeader } from '@/components/site-header';
 import { UserAuthForm } from '@/components/user-auth-form';
+import { authOptions } from '@/lib/auth';
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Login',
   description: 'Login to your account to access your dashboard',
 };
 
-export default function AuthenticationPage() {
+export default async function AuthenticationPage(): Promise<JSX.Element> {
+  const session = await getServerSession(authOptions);
+  console.log('SESSION FROM DASHBOARD: ', session);
+
+  if (session) {
+    redirect('/dashboard');
+  }
+
   return (
     <>
       <SiteHeader />
