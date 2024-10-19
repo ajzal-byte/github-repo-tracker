@@ -56,17 +56,19 @@ const RepoTable: React.FC<RepositoryTableProps> = ({ repositories }) => (
             <TableCell>
               <Checkbox />
             </TableCell>
-            <TableCell className="font-medium">{repo.name}</TableCell>
+            <TableCell className="font-medium">{repo.repoName}</TableCell>
             <TableCell className="hidden md:table-cell">
               <span className="px-2 py-1 rounded-full text-xs bg-gray-800 text-white">
                 {repo.status}
               </span>
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-              {formatDistanceToNow(parseISO(repo.updated), { addSuffix: true })}
+              {formatDistanceToNow(new Date(repo.lastUpdated), {
+                addSuffix: true,
+              })}
             </TableCell>
             <TableCell className="hidden lg:table-cell">
-              {format(parseISO(repo.created), 'do MMMM, yyyy')}
+              {format(new Date(repo.createdAt), 'do MMMM, yyyy')}
             </TableCell>
           </TableRow>
         ))}

@@ -1,6 +1,7 @@
 import { db } from '@/utils/db';
 import { repositories } from '@/utils/schema';
 import { User } from '@/utils/types';
+import { eq } from 'drizzle-orm';
 
 export async function fetchAndStoreRepositories(user: User) {
   try {
@@ -22,3 +23,10 @@ export async function fetchAndStoreRepositories(user: User) {
     console.error('Error fetching/storing repositories:', error);
   }
 }
+
+
+export const getUserRepositories = async (userId: string) => {
+  const repos = await db.select().from(repositories).where(eq(repositories.userId, userId));
+  return repos;
+};
+

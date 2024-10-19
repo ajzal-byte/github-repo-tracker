@@ -3,7 +3,7 @@ import { users } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
-import { fetchAndStoreRepositories } from './userManagement';
+import { fetchAndStoreRepositories } from './repoManagement';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.AUTH_SECRET,
@@ -49,6 +49,18 @@ export const authOptions: NextAuthOptions = {
       }
 
       return true;
+    },
+    async session({ session, token, user }) {
+      if (token.id) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
     },
   },
 };
