@@ -13,12 +13,14 @@ export interface StatCardProps {
 }
 
 export interface Repository {
-  name: string
-  status: 'Private' | 'Public'
-  updated: string
-  created: string
+  id: number;
+  createdAt: Date;
+  userId: string;
+  repoName: string;
+  status: string;
+  lastUpdated: Date;
 }
 
 export interface RepositoryTableProps {
-  repositories: Repository[]
+  repositories: Repository[];
 }

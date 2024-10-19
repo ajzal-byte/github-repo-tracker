@@ -15,5 +15,5 @@ export const repositories = pgTable('repositories', {
   repoName: text('repo_name').notNull(),
   status: text('status').notNull(),
   lastUpdated: timestamp('last_updated').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').notNull(),
 });
