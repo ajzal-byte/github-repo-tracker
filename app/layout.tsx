@@ -1,11 +1,9 @@
 import '@/styles/globals.css';
 import { Analytics } from '@/components/analytics';
-import { SiteHeader } from '@/components/site-header';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { ThemeProvider } from '@/components/theme-provider';
-import { fontMono, fontSans } from '@/lib/fonts';
+import { fontPoppins } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
-
 
 export const viewport = {
   themeColor: [
@@ -19,18 +17,17 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-
   return (
     <>
       <html
         lang="en"
-        className={`${fontSans.variable} ${fontMono.variable}`}
+        className={`${fontPoppins.variable}`}
         suppressHydrationWarning>
         <head />
         <body
           className={cn(
             'min-h-screen bg-background font-sans antialiased',
-            fontSans.variable,
+            fontPoppins.variable,
           )}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <div className="relative flex min-h-screen flex-col">
