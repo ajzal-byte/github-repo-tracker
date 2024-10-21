@@ -1,7 +1,7 @@
 import { db } from '@/utils/db';
 import { repositories } from '@/utils/schema';
 import { User } from '@/utils/types';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 export async function fetchAndStoreRepositories(user: User) {
   try {
@@ -17,16 +17,17 @@ export async function fetchAndStoreRepositories(user: User) {
         createdAt: new Date(repo.created_at),
       });
     }
-
-    console.log('Repositories stored successfully');
   } catch (error) {
     console.error('Error fetching/storing repositories:', error);
   }
 }
 
-
 export const getUserRepositories = async (userId: string) => {
-  const repos = await db.select().from(repositories).where(eq(repositories.userId, userId));
+  const repos = await db
+    .select()
+    .from(repositories)
+    .where(eq(repositories.userId, userId))
+    .orderBy(desc(repositories.createdAt));
+
   return repos;
 };
-
