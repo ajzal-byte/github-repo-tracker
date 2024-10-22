@@ -8,7 +8,7 @@ export interface User {
 export interface StatCardProps {
   icon: string;
   title: string;
-  value: string;
+  value: number;
   change: string;
 }
 

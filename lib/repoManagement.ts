@@ -1,6 +1,6 @@
 import { db } from '@/utils/db';
 import { repositories } from '@/utils/schema';
-import { User } from '@/utils/types';
+import { Repository, User } from '@/utils/types';
 import { desc, eq } from 'drizzle-orm';
 
 export async function fetchAndStoreRepositories(user: User) {
@@ -30,4 +30,43 @@ export const getUserRepositories = async (userId: string) => {
     .orderBy(desc(repositories.createdAt));
 
   return repos;
+};
+
+export const getTotalCommitsByUser = async (
+  username: string | null | undefined,
+  repositories: Repository[],
+): Promise<number> => {
+  let totalCommits = 0;
+
+  for (const repo of repositories) {
+    const commitsUrl = `https://api.github.com/repos/${username}/${repo.repoName}/commits`;
+    const commitsResponse = await fetch(commitsUrl, {
+      headers: {
+        Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+
+    if (commitsResponse.status === 404) {
+      console.error(`Repository not found: ${repo.repoName}`);
+      continue;
+    }
+
+    if (!commitsResponse.ok) {
+      if (commitsResponse.status === 403) {
+        console.error('Rate limit exceeded. Please wait and try again later.');
+        return totalCommits;
+      }
+      console.error(
+        `Error fetching commits for ${repo.repoName}:`,
+        commitsResponse.statusText,
+      );
+      continue;
+    }
+
+    const commitsData = await commitsResponse.json();
+    totalCommits += commitsData.length;
+  }
+
+  return totalCommits;
 };

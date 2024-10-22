@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 
 export default async function AuthenticationPage(): Promise<JSX.Element> {
   const session = await getServerSession(authOptions);
-  console.log('SESSION FROM DASHBOARD: ', session);
 
   if (session) {
     redirect('/dashboard');

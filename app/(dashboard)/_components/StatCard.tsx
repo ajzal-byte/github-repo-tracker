@@ -19,14 +19,14 @@ const StatCard: React.FC<StatCardProps> = ({ icon, title, value, change }) => {
         {renderIcon()}
       </div>
       <div>
-        <h3 className="text-gray-500 mb-1">{title}</h3>
-        <p className="text-2xl font-bold mb-1">{value}</p>
+        <h3 className="text-[#acacac] mb-1">{title}</h3>
+        <p className="text-[32px] text-[#404040] font-bold mb-1">{value}</p>
         <p
-          className={`text-sm ${
+          className={`text-sm font-bold ${
             change.startsWith('+') ? 'text-green-500' : 'text-red-500'
           }`}>
           {change}
-          <span className='text-[#292d32]'> this month</span>
+          <span className='text-[#292d32] font-normal'> this month</span>
         </p>
       </div>
     </div>

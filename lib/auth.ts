@@ -24,13 +24,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account }) {
       try {
-        console.log('SignIn Callback User:', user);
-        console.log('SignIn Callback Account:', account);
         const existingUser = await db
           .select()
           .from(users)
           .where(eq(users.githubId, user.id));
-        console.log('Existing User:', existingUser);
 
         if (!existingUser.length) {
           const newUser = {
@@ -40,7 +37,6 @@ export const authOptions: NextAuthOptions = {
             avatarUrl: user.image ?? '',
           };
           await db.insert(users).values(newUser);
-          console.log('New User Created:', newUser);
           await fetchAndStoreRepositories(newUser);
         }
       } catch (error) {
