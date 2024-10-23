@@ -1,11 +1,20 @@
 import { RepoTable, Sidebar, StatCard } from '../_components';
 import { Input } from '@/components/ui/input';
 import { authOptions } from '@/lib/auth';
-import { getTotalCommitsByUser, getUserRepositories } from '@/lib/repoManagement';
+import {
+  getTotalCommitsByUser,
+  getUserRepositories,
+} from '@/lib/repoManagement';
 import { Repository } from '@/utils/types';
 import { Search } from 'lucide-react';
+import { Metadata } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Dashboard example using Next.js 14',
+};
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -15,9 +24,11 @@ export default async function Dashboard() {
   }
 
   const repositories: Repository[] = await getUserRepositories(session.user.id);
-  const totalCommits = await getTotalCommitsByUser(session?.user?.name, repositories)
+  const totalCommits = await getTotalCommitsByUser(
+    session?.user?.name,
+    repositories,
+  );
   console.log(totalCommits);
-  
 
   return (
     <div className="flex">
@@ -28,7 +39,11 @@ export default async function Dashboard() {
             Hello {session?.user?.name} 👋,
           </h1>
           <div className="relative">
-            <Input type="text" placeholder="Search" className="pl-10 max-w-56 border-none rounded-xl" />
+            <Input
+              type="text"
+              placeholder="Search"
+              className="pl-10 max-w-56 border-none rounded-xl"
+            />
             <Search
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
               size={20}
