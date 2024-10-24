@@ -5,11 +5,20 @@ export interface User {
   avatarUrl: string | null;
 }
 
-export interface StatCardProps {
-  icon: string;
+export interface BaseStat {
   title: string;
-  value: number;
+  value: string | number;
   change: string;
+  icon: 'profiles' | 'profile-tick';
+  changeType: 'up' | 'down';
+}
+
+export interface StatsCardsProps {
+  stats: BaseStat[];
+}
+
+export interface StatsCardProps extends BaseStat {
+  isLast?: boolean;
 }
 
 export interface Repository {

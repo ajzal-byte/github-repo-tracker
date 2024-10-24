@@ -1,4 +1,4 @@
-import { RepoTable, Sidebar, StatCard } from '../_components';
+import { RepoTable, Sidebar, StatsCards } from '../_components';
 import { Input } from '@/components/ui/input';
 import { authOptions } from '@/lib/auth';
 import {
@@ -24,11 +24,29 @@ export default async function Dashboard() {
   }
 
   const repositories: Repository[] = await getUserRepositories(session.user.id);
-  const totalCommits = await getTotalCommitsByUser(
-    session?.user?.name,
-    repositories,
-  );
-  console.log(totalCommits);
+  const stats = [
+    {
+      title: 'Total Repositories',
+      value: repositories.length,
+      change: '16%',
+      icon: 'profiles' as const,
+      changeType: 'up' as const, // New property
+    },
+    {
+      title: 'Total Commits',
+      value: 500,
+      change: '1%',
+      icon: 'profile-tick' as const,
+      changeType: 'down' as const, // New property
+    },
+  ];
+  
+
+  // TODO: to uncomment this and implement, maybe store it in localstorage to avoid fetching at every reload
+  // const totalCommits = await getTotalCommitsByUser(
+  //   session?.user?.name,
+  //   repositories,
+  // );
 
   return (
     <div className="flex">
@@ -50,19 +68,8 @@ export default async function Dashboard() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-8 mb-8">
-          <StatCard
-            icon="profiles"
-            title="Total Repositories"
-            value={repositories.length}
-            change="+16%"
-          />
-          <StatCard
-            icon="profile-tick"
-            title="Total commits"
-            value={totalCommits}
-            change="-1%"
-          />
+        <div className="gap-8 mb-8 w-full max-w-2xl">
+          <StatsCards stats={stats}/>
         </div>
         <RepoTable repositories={repositories} />
       </div>

@@ -53,7 +53,7 @@ const Sidebar = ({
           </div>
         ))}
       </nav>
-      <div className="bg-gradient-to-r from-purple-500 to-[#4f2be9] p-4 rounded-3xl text-white mx-4 mb-6 hidden lg:flex flex-col justify-between w-[220px] h-[145px]">
+      <div className="bg-gradient-to-r from-purple-500 to-[#4f2be9] p-6 rounded-3xl text-white mx-4 mb-6 hidden lg:flex flex-col justify-between w-[220px] h-[145px]">
         <h3 className="font-medium text-center text-sm leading-5 mb-3">
           Upgrade to PRO to get access all Features!
         </h3>
