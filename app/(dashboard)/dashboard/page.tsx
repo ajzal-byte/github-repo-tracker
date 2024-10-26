@@ -55,18 +55,18 @@ export default async function Dashboard() {
   ];
 
   return (
-     <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidebar username={session?.user.name} profile={session.user.image} />
-      <div className="flex-grow p-4 sm:p-6 lg:p-8 ml-16 sm:ml-20 lg:ml-64 transition-all duration-300 ease-in-out">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8">
-          <h1 className="text-xl sm:text-2xl font-medium mb-4 sm:mb-0">
+      <div className="flex-grow p-4 sm:p-6 lg:p-8 lg:ml-64 ml-16 transition-all duration-300 ease-in-out">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8">
+          <h1 className="text-2xl font-medium mb-4 sm:mb-0">
             Hello {session?.user?.name} 👋,
           </h1>
           <div className="relative w-full sm:w-auto">
             <Input
               type="text"
               placeholder="Search"
-              className="pl-10 w-full sm:w-56 border-none rounded-xl"
+              className="pl-10 w-full sm:max-w-56 border-none rounded-xl"
             />
             <Search
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -74,8 +74,8 @@ export default async function Dashboard() {
             />
           </div>
         </div>
-        <div className="mb-6 sm:mb-8 w-full">
-          <StatsCards stats={stats}/>
+        <div className="mb-6 sm:mb-8 w-full max-w-2xl">
+          <StatsCards stats={stats} />
         </div>
         <RepoTable repositories={repositories} />
       </div>
