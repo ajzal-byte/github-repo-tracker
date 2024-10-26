@@ -5,6 +5,7 @@ import {
   getTotalCommitsByUser,
   getUserRepositories,
 } from '@/lib/repoManagement';
+import { getCachedData, setCachedData } from '@/utils/storageUtils';
 import { Repository } from '@/utils/types';
 import { Search } from 'lucide-react';
 import { Metadata } from 'next';
@@ -24,43 +25,48 @@ export default async function Dashboard() {
   }
 
   const repositories: Repository[] = await getUserRepositories(session.user.id);
+
+  // TODO: to implement real time commits
+  // const cachedCommitsKey = `totalCommits_${session.user.id}`;
+  // const maxCacheAge = 24 * 60 * 60 * 1000;
+
+  // let totalCommits = getCachedData(cachedCommitsKey, maxCacheAge);
+
+  // if (totalCommits === null) {
+  //   totalCommits = await getTotalCommitsByUser(session.user.name, repositories);
+  //   setCachedData(cachedCommitsKey, totalCommits);
+  // }
+
   const stats = [
     {
       title: 'Total Repositories',
       value: repositories.length,
       change: '16%',
       icon: 'profiles' as const,
-      changeType: 'up' as const, // New property
+      changeType: 'up' as const,
     },
     {
       title: 'Total Commits',
       value: 500,
       change: '1%',
       icon: 'profile-tick' as const,
-      changeType: 'down' as const, // New property
+      changeType: 'down' as const,
     },
   ];
-  
-
-  // TODO: to uncomment this and implement, maybe store it in localstorage to avoid fetching at every reload
-  // const totalCommits = await getTotalCommitsByUser(
-  //   session?.user?.name,
-  //   repositories,
-  // );
 
   return (
-    <div className="flex">
+     <div className="flex min-h-screen bg-gray-100">
       <Sidebar username={session?.user.name} profile={session.user.image} />
-      <div className="flex-grow p-8 ml-64">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-medium">
+      <div className="flex-grow p-4 sm:p-6 lg:p-8 ml-16 sm:ml-20 lg:ml-64 transition-all duration-300 ease-in-out">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl font-medium mb-4 sm:mb-0">
             Hello {session?.user?.name} 👋,
           </h1>
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <Input
               type="text"
               placeholder="Search"
-              className="pl-10 max-w-56 border-none rounded-xl"
+              className="pl-10 w-full sm:w-56 border-none rounded-xl"
             />
             <Search
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -68,7 +74,7 @@ export default async function Dashboard() {
             />
           </div>
         </div>
-        <div className="gap-8 mb-8 w-full max-w-2xl">
+        <div className="mb-6 sm:mb-8 w-full">
           <StatsCards stats={stats}/>
         </div>
         <RepoTable repositories={repositories} />
